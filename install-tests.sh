@@ -28,6 +28,9 @@ ruby1.9.3 -v
 gem1.9.1 -v
 gem1.9.3 -v
 gem1.9.3 install minitest
+apt-get install -y --no-install-recommends ruby1.9.1-dev
+apt-get install -y --no-install-recommends build-essential zlib1g-dev
+gem1.9.3 install nokogiri
 
 apt-get install -y --no-install-recommends ruby2.0
 ruby -v | grep 1.9
@@ -35,6 +38,8 @@ gem -v
 ruby2.0 -v
 gem2.0 -v
 gem2.0 install minitest
+apt-get install -y --no-install-recommends ruby2.0-dev
+gem2.0 install nokogiri
 
 # Lucid doesn't have ruby2.1 or ruby 2.2
 if (lsb_release -c | grep -qv lucid) ; then
@@ -44,6 +49,8 @@ if (lsb_release -c | grep -qv lucid) ; then
     ruby2.1 -v
     gem2.1 -v
     gem2.1 install minitest
+    apt-get install -y --no-install-recommends ruby2.1-dev
+    gem2.1 install nokogiri
 
     apt-get install -y --no-install-recommends ruby2.2
     ruby -v | grep 1.9
@@ -51,6 +58,8 @@ if (lsb_release -c | grep -qv lucid) ; then
     ruby2.2 -v
     gem2.2 -v
     gem2.2 install minitest
+    apt-get install -y --no-install-recommends ruby2.2-dev
+    gem2.2 install nokogiri
 fi
 
 apt-get install -y --no-install-recommends ruby-switch
