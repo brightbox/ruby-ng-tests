@@ -10,8 +10,8 @@ yes | apt-add-repository ${PPA_NAME}
 
 apt-get update
 
-# Utopic doesn't have 1.8 packages yet
-if (lsb_release -c | grep -qv utopic) ; then
+# Utopic and Vivid don't have 1.8 packages yet
+if (lsb_release -c | grep -qvE "utopic|vivid") ; then
     apt-get install -y --no-install-recommends ruby1.8 rubygems1.8
     ruby -v | grep -E "1.8.*Ruby Enterprise Edition"
     gem -v
@@ -41,40 +41,39 @@ gem2.0 install minitest
 apt-get install -y --no-install-recommends ruby2.0-dev
 gem2.0 install nokogiri
 
-# Lucid doesn't have ruby2.1 or ruby 2.2
-if (lsb_release -c | grep -qv lucid) ; then
-    apt-get install -y --no-install-recommends ruby2.1
-    ruby -v | grep 1.9
-    gem -v
-    ruby2.1 -v
-    gem2.1 -v
-    gem2.1 install minitest
-    apt-get install -y --no-install-recommends ruby2.1-dev
-    gem2.1 install nokogiri
+apt-get install -y --no-install-recommends ruby2.1
+ruby -v | grep 1.9
+gem -v
+ruby2.1 -v
+gem2.1 -v
+gem2.1 install minitest
+apt-get install -y --no-install-recommends ruby2.1-dev
+gem2.1 install nokogiri
 
-    apt-get install -y --no-install-recommends ruby2.2
-    ruby -v | grep 1.9
-    gem -v
-    ruby2.2 -v
-    gem2.2 -v
-    gem2.2 install minitest
-    apt-get install -y --no-install-recommends ruby2.2-dev
-    gem2.2 install nokogiri
-fi
+apt-get install -y --no-install-recommends ruby2.2
+ruby -v | grep 1.9
+gem -v
+ruby2.2 -v
+gem2.2 -v
+gem2.2 install minitest
+apt-get install -y --no-install-recommends ruby2.2-dev
+gem2.2 install nokogiri
 
 apt-get install -y --no-install-recommends ruby-switch
 
-if (lsb_release -c | grep -qv utopic) ; then
+if (lsb_release -c | grep -qvE "utopic|vivid") ; then
     ruby-switch --set ruby1.8
     ruby -v | grep 1.8
 fi
+
 ruby-switch --set ruby1.9.1
 ruby -v | grep 1.9
+
 ruby-switch --set ruby2.0
 ruby -v | grep 2.0
-if (lsb_release -c | grep -qv lucid) ; then
-    ruby-switch --set ruby2.1
-    ruby -v | grep 2.1
-    ruby-switch --set ruby2.2
-    ruby -v | grep 2.2
-fi
+    
+ruby-switch --set ruby2.1
+ruby -v | grep 2.1
+
+ruby-switch --set ruby2.2
+ruby -v | grep 2.2
