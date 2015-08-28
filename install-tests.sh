@@ -10,8 +10,8 @@ yes | apt-add-repository ${PPA_NAME}
 
 apt-get update
 
-# Utopic and Vivid don't have 1.8 packages yet
-if (lsb_release -c | grep -qvE "utopic|vivid") ; then
+# Vivid don't have 1.8 packages yet
+if (lsb_release -c | grep -qvE "vivid") ; then
     apt-get install -y --no-install-recommends ruby1.8 rubygems1.8
     ruby -v | grep -E "1.8.*Ruby Enterprise Edition"
     gem -v
@@ -61,7 +61,7 @@ gem2.2 install nokogiri
 
 apt-get install -y --no-install-recommends ruby-switch
 
-if (lsb_release -c | grep -qvE "utopic|vivid") ; then
+if (lsb_release -c | grep -qvE "vivid") ; then
     ruby-switch --set ruby1.8
     ruby -v | grep 1.8
 fi
