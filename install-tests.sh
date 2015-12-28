@@ -34,7 +34,8 @@ for ver in ${versions[*]} ; do
     gem${ver} -v
     gem${ver} install minitest
     apt-get install -q -y --no-install-recommends ruby${ver}-dev
-    gem${ver} install nokogiri
+    # nokogiri 1.5.11 works on 1.8
+    gem${ver} install --version 1.5.11 nokogiri
 done
 
 apt-get install -y --no-install-recommends ruby-switch
