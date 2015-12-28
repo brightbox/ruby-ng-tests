@@ -14,7 +14,7 @@ set -ex
 apt-get update -qqy
 which apt-add-repository || apt-get install -qqy --no-install-recommends software-properties-common >/dev/null || true
 which apt-add-repository || apt-get install -qqy --no-install-recommends python-software-properties >/dev/null || true
-apt-get install -qqy --no-install-recommends build-essential zlib1g-dev >/dev/null
+apt-get install -qqy --no-install-recommends build-essential zlib1g-dev libxml2-dev libxslt-dev >/dev/null
 
 yes | apt-add-repository ${PPA_NAME}
 
