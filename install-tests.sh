@@ -2,7 +2,7 @@
 
 
 declare -a versions=(${RUBY_VERSIONS="2.0 2.1 2.2"})
-defaultver=${versions[0]}
+defaultver=${RUBY_DEFAULT_VERSION:=${versions[0]}}
 
 echo "============ install-tests.sh: Testing ${PPA_NAME} for ruby versions: ${versions[*]} with default version ${defaultver}"
 
@@ -26,6 +26,9 @@ for ver in ${versions[*]} ; do
     dpkg -l ruby${ver} | grep bbox
     ruby -v
     ruby -v | grep -E ${defaultver:0:3}
+    if ${ver} == "1.8" ; then
+        apt-get install -q -y --no-install-recommends rubygems rubygems1.8
+    fi
     gem -v
     ruby${ver} -v
     gem${ver} -v
