@@ -9,6 +9,6 @@ declare -A dists=(
     ["wily"]="2.0 2.1 2.2"
 )
 
-for dist in ${!dists[@]} ; do
+for dist in ${DIST_CODENAME:=${!dists[@]}} ; do
     docker run -i -e RUBY_VERSIONS="${dists[$dist]}" -e PPA_NAME=${PPA_NAME:="ppa:brightbox/ruby-ng-experimental"} ubuntu:${dist} bash < install-tests.sh
 done
