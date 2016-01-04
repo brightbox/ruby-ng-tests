@@ -38,7 +38,7 @@ for ver in ${versions[*]} ; do
     gem${ver} install --version 1.5.11 nokogiri
 done
 
-apt-get install -y --no-install-recommends ruby-switch
+apt-get install -q -y --no-install-recommends ruby-switch
 
 for rubyver in $RUBY_VERSIONS ; do
     ruby-switch --set ruby${rubyver}
