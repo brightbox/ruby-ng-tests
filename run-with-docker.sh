@@ -5,7 +5,7 @@ set -ex
 declare -A dists=(
     ["precise"]="1.9.1 1.8 2.0 2.1 2.2 2.3"
     ["trusty"]="1.9.1 1.8 2.0 2.1 2.2 2.3"
-    ["wily"]="2.0 2.1 2.2 2.3"
+    ["xenial"]="1.9.1 1.8 2.0 2.1 2.2 2.3"
 )
 
 for dist in ${DIST_CODENAME:=${!dists[@]}} ; do
