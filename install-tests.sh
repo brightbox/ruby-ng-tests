@@ -27,7 +27,7 @@ for ver in ${versions[*]} ; do
     ruby -v
     ruby -v | grep -E ${defaultver:0:3}
     if [ "${ver}" == "1.8" ] ; then
-        apt-get install -q -y --no-install-recommends rubygems rubygems1.8
+        apt-get install -q -y --no-install-recommends rubygems rubygems1.8 || echo "no rubygems packages available, must be all-in-one"
     fi
     gem -v
     ruby${ver} -v
