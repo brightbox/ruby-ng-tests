@@ -50,6 +50,10 @@ done
 apt-get install -q -y --no-install-recommends ruby
 
 for rubyver in $RUBY_VERSIONS ; do
+    # installing 1.8 alongside ruby package in trusty isn't supported.
+    if [ "${rubyver}" == "1.8" ] && lsb_release -cs | grep -q trusty ; then
+        continue
+    fi
     ruby-switch --set ruby${rubyver}
     ruby -v
     ruby -v | grep ${rubyver:0:3}
