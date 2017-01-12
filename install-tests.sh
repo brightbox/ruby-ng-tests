@@ -45,3 +45,12 @@ for rubyver in $RUBY_VERSIONS ; do
     ruby -v
     ruby -v | grep ${rubyver:0:3}
 done
+
+# Test ruby-switch again after installing ruby package
+apt-get install -q -y --no-install-recommends ruby
+
+for rubyver in $RUBY_VERSIONS ; do
+    ruby-switch --set ruby${rubyver}
+    ruby -v
+    ruby -v | grep ${rubyver:0:3}
+done
