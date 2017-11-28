@@ -12,8 +12,7 @@ export DEBIAN_FRONTEND=noninteractive
 set -ex
 
 apt-get update -qqy
-which apt-add-repository || apt-get install -qqy --no-install-recommends software-properties-common >/dev/null || true
-which apt-add-repository || apt-get install -qqy --no-install-recommends python-software-properties >/dev/null || true
+apt-get install -qqy --no-install-recommends software-properties-common >/dev/null
 apt-get install -qqy --no-install-recommends build-essential zlib1g-dev libxml2-dev libxslt-dev >/dev/null
 
 yes | apt-add-repository ${PPA_NAME}
@@ -26,9 +25,6 @@ for ver in ${versions[*]} ; do
     dpkg -l ruby${ver} | grep bbox
     ruby -v
     ruby -v | grep -E ${defaultver:0:3}
-    if [ "${ver}" == "1.8" ] ; then
-        apt-get install -q -y --no-install-recommends rubygems rubygems1.8 || echo "no rubygems packages available, must be all-in-one"
-    fi
     gem -v
     ruby${ver} -v
     gem${ver} -v
@@ -50,10 +46,6 @@ done
 apt-get install -q -y --no-install-recommends ruby
 
 for rubyver in $RUBY_VERSIONS ; do
-    # installing 1.8 alongside ruby package in trusty isn't supported.
-    if [ "${rubyver}" == "1.8" ] && lsb_release -cs | grep -q trusty ; then
-        continue
-    fi
     ruby-switch --set ruby${rubyver}
     ruby -v
     ruby -v | grep ${rubyver:0:3}
