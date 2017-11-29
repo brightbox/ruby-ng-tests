@@ -1,7 +1,7 @@
 pipeline {
   agent none
   environment {
-    PPA_NAME="ppa:brightbox/ruby-ng-experimental"
+    PPA_NAME="ppa:brightbox/ruby-ng"
   }
 
   stages {
