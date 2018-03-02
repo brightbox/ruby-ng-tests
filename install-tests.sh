@@ -8,6 +8,15 @@ echo "============ install-tests.sh: Testing ${PPA_NAME} for ruby versions: ${ve
 export TERM=ansi
 export DEBIAN_FRONTEND=noninteractive
 
+function package_to_ruby_version {
+    if [ "$1" == "1.9.1" ] ; then
+        echo "1.9.3"
+    else
+        echo $1
+    fi
+}
+
+
 set -ex
 
 apt-get update -qqy
@@ -18,34 +27,53 @@ yes | apt-add-repository ${PPA_NAME}
 
 apt-get update -qqy
 
+echo "============ install each version on it's own"
 for ver in ${versions[*]} ; do
     apt-cache madison ruby${ver} | grep bbox
     apt-get install -q -y --no-install-recommends ruby${ver}
     dpkg -l ruby${ver} | grep bbox
     ruby -v
-    ruby -v | grep -E ${defaultver:0:3}
+    # the default ruby should become this version
+    ruby -v | grep -E "ruby $(package_to_ruby_version $ver)"
     gem -v
     ruby${ver} -v
     gem${ver} -v
     gem${ver} install minitest
     apt-get install -q -y --no-install-recommends ruby${ver}-dev
-    # nokogiri 1.5.11 works on 1.8
+    # nokogiri 1.5.11 still works on 1.8
     gem${ver} install --version 1.5.11 nokogiri
+    apt-get remove -q -y ruby${ver} ruby${ver}-dev
+done
+
+echo "============ install all versions together"
+for ver in ${versions[*]} ; do
+    apt-get install -q -y --no-install-recommends ruby${ver} ruby${ver}-dev
+    dpkg -l ruby${ver} | grep bbox
+    ruby -v
+    # the default ruby shouldn't change as we install new packages
+    ruby -v | grep -E "ruby $(package_to_ruby_version $defaultver)"
+    gem -v
+    ruby${ver} -v
+    gem${ver} -v
 done
 
 apt-get install -q -y --no-install-recommends ruby-switch
 
-for rubyver in $RUBY_VERSIONS ; do
-    ruby-switch --set ruby${rubyver}
+echo "============ switch between versions"
+for ver in ${versions[*]} ; do
+    ruby-switch --set ruby${ver}
     ruby -v
-    ruby -v | grep ${rubyver:0:3}
+    ruby -v | grep "ruby $(package_to_ruby_version $ver)"
 done
 
 # Test ruby-switch again after installing ruby package
+echo "============ switch between versions with ruby package installed"
 apt-get install -q -y --no-install-recommends ruby
 
-for rubyver in $RUBY_VERSIONS ; do
-    ruby-switch --set ruby${rubyver}
+for ver in ${versions[*]} ; do
+    ruby-switch --set ruby${ver}
     ruby -v
-    ruby -v | grep ${rubyver:0:3}
+    ruby -v | grep "ruby $(package_to_ruby_version $ver)"
 done
+
+echo "finished successfully"
