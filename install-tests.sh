@@ -1,7 +1,6 @@
 #!/bin/bash
 
-
-declare -a versions=(${RUBY_VERSIONS="2.0 2.1 2.2"})
+declare -a versions=(${RUBY_VERSIONS="1.9.1 1.8 2.0 2.1 2.2 2.3 2.4 2.5"})
 defaultver=${RUBY_DEFAULT_VERSION:=${versions[0]}}
 
 echo "============ install-tests.sh: Testing ${PPA_NAME} for ruby versions: ${versions[*]} with default version ${defaultver}"
