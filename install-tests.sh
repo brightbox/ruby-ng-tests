@@ -39,6 +39,8 @@ for ver in ${versions[*]} ; do
     ruby${ver} -v
     gem${ver} -v
     gem${ver} install minitest
+    # make sure the gem was installed in the right place
+    test -d /var/lib/gems/${ver}*/gems/minitest-*
     apt-get install -q -y --no-install-recommends ruby${ver}-dev
     # nokogiri 1.5.11 still works on 1.8
     gem${ver} install --version 1.5.11 nokogiri
@@ -55,6 +57,11 @@ for ver in ${versions[*]} ; do
     gem -v
     ruby${ver} -v
     gem${ver} -v
+
+    # make sure the gem was installed in the right place
+    test -d /var/lib/gems/${ver}*/gems/nokogiri-*
+
+    ruby${ver} -r rbconfig -e "exit RbConfig::CONFIG['sysconfdir'] == '/etc'"
 done
 
 apt-get install -q -y --no-install-recommends ruby-switch
