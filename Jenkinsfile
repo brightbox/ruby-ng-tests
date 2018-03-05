@@ -29,17 +29,6 @@ pipeline {
             sh './install-tests.sh'
           }
         }
-        stage("Zesty") {
-          agent {
-            docker {
-              args '-u 0:0'
-              image 'ubuntu:zesty'
-            }
-          }
-          steps {
-            sh './install-tests.sh'
-          }
-        }
         stage("Artful") {
           agent {
             docker {
