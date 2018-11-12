@@ -29,11 +29,12 @@ pipeline {
             sh './install-tests.sh'
           }
         }
-        stage("Artful") {
+        stage("Bionic") {
+          environment { RUBY_VERSIONS="2.3 2.4 2.5" }
           agent {
             docker {
               args '-u 0:0'
-              image 'ubuntu:artful'
+              image 'ubuntu:bionic'
             }
           }
           steps {
