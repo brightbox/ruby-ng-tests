@@ -38,7 +38,7 @@ for ver in ${versions[*]} ; do
     gem -v
     ruby${ver} -v
     gem${ver} -v
-    gem${ver} install minitest
+    gem${ver} install -v 5.11.3 minitest
     # make sure the gem was installed in the right place
     test -d /var/lib/gems/${ver}*/gems/minitest-*
     apt-get install -q -y --no-install-recommends ruby${ver}-dev
