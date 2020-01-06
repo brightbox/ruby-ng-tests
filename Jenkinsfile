@@ -7,18 +7,6 @@ pipeline {
   stages {
     stage("Install tests") {
       parallel {
-        stage("Trusty") {
-          environment { RUBY_VERSIONS="1.9.1 1.8 2.0 2.1 2.2 2.3 2.4 2.5" }
-          agent {
-            docker {
-              args '-u 0:0'
-              image 'ubuntu:trusty'
-            }
-          }
-          steps {
-            sh './install-tests.sh'
-          }
-        }
         stage("Xenial") {
           environment { RUBY_VERSIONS="1.9.1 1.8 2.0 2.1 2.2 2.3 2.4 2.5 2.6" }
           agent {
