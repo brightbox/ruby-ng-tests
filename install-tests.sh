@@ -44,7 +44,7 @@ for ver in ${versions[*]} ; do
     apt-get install -q -y --no-install-recommends ruby${ver}-dev
     # nokogiri 1.5.11 still works on 1.8
     gem${ver} install --version 1.5.11 nokogiri
-    apt-get remove -q -y ruby${ver} ruby${ver}-dev
+    apt-get remove -q -y ruby${ver} ruby${ver}-dev rake ruby-test-unit
 done
 
 echo "============ install all versions together"
