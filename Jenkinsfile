@@ -31,6 +31,18 @@ pipeline {
             sh './install-tests.sh'
           }
         }
+        stage("Focal") {
+          environment { RUBY_VERSIONS="2.7" }
+          agent {
+            docker {
+              args '-u 0:0'
+              image 'ubuntu:focal'
+            }
+          }
+          steps {
+            sh './install-tests.sh'
+          }
+        }
       }
     }
   }
