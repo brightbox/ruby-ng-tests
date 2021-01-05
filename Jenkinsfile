@@ -32,7 +32,7 @@ pipeline {
           }
         }
         stage("Focal") {
-          environment { RUBY_VERSIONS="2.6 2.7" }
+          environment { RUBY_VERSIONS="2.5 2.6 2.7" }
           agent {
             docker {
               args '-u 0:0'
